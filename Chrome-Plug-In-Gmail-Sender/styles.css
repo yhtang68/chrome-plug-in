@@ -1,0 +1,14 @@
+/* hoverEmail.css */
+
+/* Base style for sender spans — no initial coloring */
+span[data-gsqv-enhanced="true"] {
+  cursor: pointer !important;       /* always show pointer when hovering */
+  text-decoration: none !important; /* no underline initially */
+  background-color: transparent !important; /* no background initially */
+}
+
+/* Hover style: highlight when mouse is over */
+span[data-gsqv-enhanced="true"]:hover {
+  text-decoration: underline !important;
+  background-color: rgba(255, 200, 200, 0.3) !important;
+}
