@@ -1,6 +1,6 @@
 # Gmail Hover Sender
 
-A simple Chrome extension that highlights Gmail sender email addresses on hover and lets you Alt+Click to search all emails from that sender in Gmail.
+A simple Chrome extension that highlights Gmail sender email addresses on hover and lets you mouse Click to search all emails from that sender in Gmail.
 
 ## What it does
 
