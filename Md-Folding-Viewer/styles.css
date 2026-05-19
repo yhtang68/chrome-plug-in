@@ -1,0 +1,183 @@
+:root {
+  color-scheme: light;
+}
+
+body.md-folding-viewer {
+  margin: 0;
+  font: 16px/1.55 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+}
+
+body.md-folding-viewer.mfv-native-page {
+  background: #f7f8fa;
+  color: #24292f;
+}
+
+body.md-folding-viewer.mfv-github-page {
+  background: inherit;
+  color: inherit;
+}
+
+.mfv-floating-controls {
+  position: fixed;
+  bottom: 12px;
+  right: 12px;
+  z-index: 1000;
+  display: flex;
+  align-items: flex-end;
+  flex-direction: column-reverse;
+  gap: 8px;
+}
+
+.mfv-button {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  background: #f6f8fa;
+  color: #24292f;
+  padding: 6px 10px;
+  font: 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  cursor: pointer;
+}
+
+.mfv-button:hover {
+  background: #eef2f6;
+}
+
+.mfv-menu {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+  box-sizing: border-box;
+  min-width: 176px;
+  max-width: min(260px, calc(100vw - 24px));
+  padding: 8px;
+  border: 1px solid #d0d7de;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 8px 24px rgba(140, 149, 159, 0.3);
+}
+
+.mfv-menu[hidden] {
+  display: none;
+}
+
+.mfv-menu-item {
+  width: 100%;
+  border: 0;
+  border-radius: 6px;
+  background: transparent;
+  color: #24292f;
+  padding: 8px 10px;
+  font: 14px/1.2 -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  text-align: left;
+  cursor: pointer;
+}
+
+.mfv-menu-item:hover,
+.mfv-menu-item:focus {
+  background: #f6f8fa;
+}
+
+.mfv-menu-item:disabled {
+  color: #8c959f;
+  cursor: not-allowed;
+}
+
+.mfv-menu-item:disabled:hover,
+.mfv-menu-item:disabled:focus {
+  background: transparent;
+}
+
+.mfv-status {
+  overflow: hidden;
+  padding: 4px 10px 2px;
+  color: #57606a;
+  font-size: 13px;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+}
+
+.mfv-shell {
+  box-sizing: border-box;
+  max-width: 1120px;
+  margin: 0 auto;
+  padding: 28px;
+  min-height: 100vh;
+}
+
+body.md-folding-viewer.mfv-native-page .mfv-shell {
+  background: #ffffff;
+}
+
+body.md-folding-viewer.mfv-github-page .mfv-shell {
+  background: transparent;
+  color: inherit;
+}
+
+.mfv-content {
+  overflow-wrap: anywhere;
+}
+
+.mfv-section {
+  margin: 0 0 16px;
+  border: 0;
+  border-radius: 0;
+  background: transparent;
+}
+
+.mfv-section[open] {
+  box-shadow: none;
+}
+
+.mfv-section-body {
+  padding: 0 0 1px;
+}
+
+.mfv-summary {
+  cursor: pointer;
+  padding: 2px 0;
+  list-style-position: outside;
+}
+
+.mfv-summary::marker {
+  color: #57606a;
+  font-size: 1em;
+}
+
+.mfv-level-1 > .mfv-summary::marker {
+  font-size: 2em;
+}
+
+.mfv-level-2 > .mfv-summary::marker {
+  font-size: 1.5em;
+}
+
+.mfv-summary h1 .anchor,
+.mfv-summary h2 .anchor {
+  pointer-events: auto;
+}
+
+.mfv-level-2 {
+  margin-left: 0;
+}
+
+.mfv-error {
+  border: 1px solid #d0d7de;
+  border-radius: 6px;
+  padding: 16px;
+  background: #fff8c5;
+}
+
+@media (max-width: 700px) {
+  .mfv-floating-controls {
+    bottom: 8px;
+    right: 8px;
+  }
+
+  .mfv-shell {
+    padding: 16px;
+  }
+
+  .mfv-level-2 {
+    margin-left: 0;
+  }
+}

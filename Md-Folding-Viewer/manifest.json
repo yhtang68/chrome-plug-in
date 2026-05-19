@@ -1,0 +1,36 @@
+{
+  "manifest_version": 3,
+  "name": "Markdown Folding Viewer",
+  "version": "1.0.0",
+  "description": "Render opened Markdown files with foldable H1/H2 sections for easier navigation.",
+  "permissions": ["storage", "tabs"],
+  "host_permissions": ["https://raw.githubusercontent.com/*"],
+  "action": {
+    "default_title": "Markdown Folding Viewer",
+    "default_popup": "popup.html"
+  },
+  "content_scripts": [
+    {
+      "matches": ["file:///*", "http://*/*.md", "https://*/*.md", "http://*/*.markdown", "https://*/*.markdown", "https://github.com/*"],
+      "js": [
+        "vendor/markdown-it.min.js",
+        "vendor/highlight.min.js",
+        "vendor/purify.min.js",
+        "src/source-rules.js",
+        "src/viewer-toggle.js",
+        "src/markdown-renderer.js",
+        "src/sources/markdown-source.js",
+        "src/sources/github-markdown-source.js",
+        "src/sources/native-markdown-source.js",
+        "src/foldable-html-viewer.js",
+        "src/app.js"
+      ],
+      "css": [
+        "vendor/native-github-markdown.css",
+        "vendor/native-highlight-github.css",
+        "styles.css"
+      ],
+      "run_at": "document_idle"
+    }
+  ]
+}
