@@ -7,6 +7,9 @@
   class FoldableHtmlViewer {
     constructor(toggle) {
       this.toggle = toggle;
+      this.canUseGeneratedFolding = false;
+      this.isPlainMode = false;
+      this.plainContentNodes = [];
     }
 
     // getters and setters
@@ -38,6 +41,19 @@
 
       menuTrigger.setAttribute("aria-expanded", String(open));
       menu.hidden = !open;
+    }
+
+    setPlainMode(plain) {
+      const content = document.querySelector(".mfv-content");
+
+      this.isPlainMode = plain;
+      this.restorePlainContent(content);
+
+      if (!plain && this.canUseGeneratedFolding) {
+        this.foldTopLevels(content);
+      }
+
+      this.updateModeControls();
     }
 
     // functions
@@ -91,6 +107,11 @@
         this.setMenuOpen(false);
       });
 
+      document.querySelector('[data-action="mode"]').addEventListener("click", () => {
+        this.setPlainMode(!this.isPlainMode);
+        this.setMenuOpen(false);
+      });
+
       document.querySelector('[data-action="disable"]').addEventListener("click", () => {
         this.toggle.setDisabled(true).then(() => {
           location.reload();
@@ -122,6 +143,10 @@
           menuTrigger.focus();
         }
       });
+    }
+
+    capturePlainContent(root) {
+      this.plainContentNodes = Array.from(root.childNodes).map((node) => node.cloneNode(true));
     }
 
     ensureHeadingPermalinks(root) {
@@ -197,7 +222,7 @@
       root.replaceChildren(...Array.from(folded.childNodes));
     }
 
-    hasExistingFoldableContent(root, documentPayload) {
+    hasExistingFoldableContent(root) {
       return Boolean(root.querySelector("details summary"));
     }
 
@@ -234,6 +259,7 @@
         '<div class="mfv-menu" id="mfv-control-menu" hidden>' +
         '<button class="mfv-menu-item" type="button" data-action="expand">Expand all</button>' +
         '<button class="mfv-menu-item" type="button" data-action="fold">Fold all</button>' +
+        '<button class="mfv-menu-item" type="button" data-action="mode">Show plain Markdown</button>' +
         '<button class="mfv-menu-item" type="button" data-action="disable">Disable viewer</button>' +
         '<span class="mfv-status"></span>' +
         '</div>' +
@@ -248,10 +274,14 @@
         this.mountContent(content, documentPayload);
         this.addHeadingIds(content);
         this.ensureHeadingPermalinks(content);
-        if (!this.hasExistingFoldableContent(content, documentPayload)) {
+        this.capturePlainContent(content);
+        this.canUseGeneratedFolding = !this.hasExistingFoldableContent(content);
+        this.isPlainMode = false;
+        if (this.canUseGeneratedFolding) {
           this.foldTopLevels(content);
         }
         status.textContent = "Loaded: " + filename;
+        this.updateModeControls();
         setTimeout(() => this.scrollToHashTarget(), 0);
       } catch (error) {
         content.innerHTML = '<div class="mfv-error"><strong>Could not render Markdown.</strong><p><code>' +
@@ -261,6 +291,10 @@
       }
 
       this.bindControls();
+    }
+
+    restorePlainContent(root) {
+      root.replaceChildren(...this.plainContentNodes.map((node) => node.cloneNode(true)));
     }
 
     sanitizeHtml(html) {
@@ -295,6 +329,20 @@
         .replace(/[^\w\s-]/g, "")
         .replace(/\s+/g, "-")
         .replace(/-+/g, "-") || "section";
+    }
+
+    updateModeControls() {
+      const modeButton = document.querySelector('[data-action="mode"]');
+
+      if (!modeButton) {
+        return;
+      }
+
+      modeButton.textContent = this.isPlainMode ? "Show foldable Markdown" : "Show plain Markdown";
+      modeButton.disabled = !this.canUseGeneratedFolding;
+      modeButton.title = this.canUseGeneratedFolding
+        ? ""
+        : "This document already owns its foldable sections.";
     }
   }
 

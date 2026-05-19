@@ -77,6 +77,16 @@ body.md-folding-viewer.mfv-github-page {
   background: #f6f8fa;
 }
 
+.mfv-menu-item:disabled {
+  color: #8c959f;
+  cursor: not-allowed;
+}
+
+.mfv-menu-item:disabled:hover,
+.mfv-menu-item:disabled:focus {
+  background: transparent;
+}
+
 .mfv-status {
   overflow: hidden;
   padding: 4px 10px 2px;

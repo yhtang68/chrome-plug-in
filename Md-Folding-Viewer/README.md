@@ -39,6 +39,8 @@ Use the floating menu to:
 
 - **Expand all** opened/created foldable sections.
 - **Fold all** opened/created foldable sections.
+- **Show plain Markdown** to view the rendered Markdown without the viewer-generated folding wrapper.
+- **Show foldable Markdown** to return to the generated folding view.
 - **Disable viewer** for the current page and reload back to the original view.
 
 If the document already has HTML foldable blocks, for example:
@@ -67,6 +69,7 @@ The viewer keeps its Markdown parser, syntax highlighter, sanitizer, and native 
 - Generated foldable sections use native disclosure arrows on `h1` and `h2` headings.
 - The old sticky control banner has been removed so it does not cover the first Markdown heading.
 - The floating **Controls** menu stays out of the document flow and opens only when needed.
+- The **Show plain Markdown** menu item switches between generated folding and normal rendered Markdown.
 
 ## How It Works
 
@@ -95,7 +98,7 @@ If the viewer is enabled, the selected source returns a document payload:
 - GitHub pages usually provide already-rendered GitHub HTML.
 - Native Markdown files are parsed into HTML with local `markdown-it`, highlighted with local Highlight.js, and then sanitized with DOMPurify.
 
-Finally, `FoldableHtmlViewer.render()` owns the visible page. It replaces the raw page with the reader shell, mounts the Markdown HTML, normalizes heading IDs, keeps heading links working, and adds the floating **Controls** menu. If the rendered document already contains real `<details>` / `<summary>` foldable sections, it keeps them as-is. Otherwise, it wraps top-level `h1` and `h2` sections in generated foldable `<details>` blocks.
+Finally, `FoldableHtmlViewer.render()` owns the visible page. It replaces the raw page with the reader shell, mounts the Markdown HTML, normalizes heading IDs, keeps heading links working, and adds the floating **Controls** menu. It keeps a clean copy of the rendered Markdown before adding generated folding, which lets the menu switch back to **Show plain Markdown** later. If the rendered document already contains real `<details>` / `<summary>` foldable sections, it keeps them as-is. Otherwise, it wraps top-level `h1` and `h2` sections in generated foldable `<details>` blocks.
 
 ## Architecture
 
@@ -213,4 +216,5 @@ Md-Folding-Viewer/
    - For GitHub source, it preserves GitHub body classes/DOM, mounts GitHub's rendered HTML, applies `sourceType: "github"`, and wraps `h1` / `h2` sections when needed.
    - For native source, it sanitizes locally rendered GitHub-like HTML, applies `sourceType: "native"`, and wraps `h1` / `h2` sections when needed.
    - It detects existing `<details>` / `<summary>` content and skips the wrapping pass to avoid double-folding.
+   - It can restore the pre-folded rendered Markdown when the floating menu switches to plain Markdown mode.
    - It also normalizes heading IDs, keeps heading permalink behavior, and binds the floating viewer controls.
