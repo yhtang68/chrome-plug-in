@@ -1,0 +1,31 @@
+/* LinkedIn Job Copy */
+
+.lijc-about-job {
+  display: inline-block !important;
+  cursor: pointer !important;
+  border-radius: 4px !important;
+  padding: 2px 4px !important;
+  margin: -2px -4px !important;
+}
+
+.lijc-about-job:hover {
+  background: rgba(10, 102, 194, 0.14) !important;
+  color: #0a66c2 !important;
+}
+
+.lijc-tooltip {
+  position: fixed;
+  z-index: 2147483647;
+  display: none;
+  padding: 6px 10px;
+  border-radius: 6px;
+  background: #0a66c2;
+  color: #fff;
+  font: 600 13px/1.2 Arial, sans-serif;
+  pointer-events: none;
+  white-space: nowrap;
+}
+
+.lijc-tooltip--visible {
+  display: block;
+}
