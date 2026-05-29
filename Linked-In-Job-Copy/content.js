@@ -57,14 +57,27 @@
     return heading.parentElement;
   }
 
+  function getCleanJobUrl() {
+    const match = location.pathname.match(/^\/jobs\/view\/(\d+)/);
+
+    if (match) {
+      return `${location.origin}/jobs/view/${match[1]}/`;
+    }
+
+    return `${location.origin}${location.pathname}`;
+  }
+
   function buildClipboardContent(content) {
     const clone = content.cloneNode(true);
 
     clone.querySelectorAll("button, script, style").forEach((node) => node.remove());
+    const url = getCleanJobUrl();
+    const html = clone.innerHTML.trim();
+    const text = cleanText(clone.innerText || clone.textContent);
 
     return {
-      html: clone.innerHTML.trim(),
-      text: cleanText(clone.innerText || clone.textContent)
+      html: `<p><a href="${url}">${url}</a></p>${html}`,
+      text: cleanText(`${url}\n\n${text}`)
     };
   }
 
