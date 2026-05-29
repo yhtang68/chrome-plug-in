@@ -108,8 +108,8 @@
 
     const rect = anchor.getBoundingClientRect();
     tooltip.textContent = text;
-    tooltip.style.left = `${rect.right + 8}px`;
-    tooltip.style.top = `${rect.top}px`;
+    tooltip.style.left = `${rect.left + rect.width / 2}px`;
+    tooltip.style.top = `${rect.top - 8}px`;
     tooltip.classList.add("lijc-tooltip--visible");
 
     window.clearTimeout(tooltip.hideTimer);
