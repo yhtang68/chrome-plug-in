@@ -8,6 +8,7 @@ A simple Chrome extension that highlights the `About the job` content on LinkedI
 - Highlights only the `About the job` heading text so it is visibly clickable.
 - Shows a conventional tooltip with `Click to copy job content` when hovering the highlighted heading.
 - Click the highlighted heading to copy the job content with readable line breaks and rich HTML formatting when supported.
+- Copies a clean job URL like `https://www.linkedin.com/jobs/view/4315372541/`, removing LinkedIn tracking query parameters.
 - Shows a matching `Job Copied` tooltip after the content is copied.
 
 ## Install
