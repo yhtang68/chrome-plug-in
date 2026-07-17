@@ -40,7 +40,8 @@
       ev.stopPropagation();
 
       if (altRequired && !ev.altKey) return; // Alt required logic
-      location.href = `#search/from:${email}`;
+      const query = `from: ${email}`;
+      location.href = `#search/${encodeURIComponent(query)}`;
     });
 
     senderSpan._hoverListenerAdded = true;
